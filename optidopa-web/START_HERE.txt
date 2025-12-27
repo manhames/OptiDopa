@@ -1,0 +1,75 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║                     🎯 OptiDopa Web App                      ║
+║             Levodopa Dose Optimizer & Tracker                ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+✅ INSTALLATION COMPLETE!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 TO START THE APP:
+
+   1. Open terminal/command prompt
+
+   2. Navigate to this folder:
+      cd C:\Users\MAX\OptiDopa\optidopa-web
+
+   3. Run:
+      npm run dev
+
+   4. Open in browser:
+      http://localhost:3000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 WHAT YOU'LL SEE:
+
+   • Excel-like table to input your doses
+   • Real-time chart showing plasma concentration
+   • Color-coded therapeutic zones (green = optimal!)
+   • Statistics panel with peak, trough, and time-in-range
+   • Export button to save your data as CSV
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💊 YOUR MEDICATIONS:
+
+   Carbilev 25/100mg (IR - Immediate Release)
+   • Full dose: 100mg levodopa
+   • Half dose: 50mg levodopa
+
+   Sinemet CR 50/200mg (CR - Controlled Release)
+   • Full dose: 200mg levodopa
+   • Half dose: 100mg levodopa
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 THERAPEUTIC TARGETS:
+
+   🟢 Optimal Range: 1000-1600 ng/mL (stay here!)
+   🟡 Sub-optimal: 800-1000 ng/mL (still works)
+   🔴 Risk Zone: >1600 ng/mL (dyskinesia risk)
+   ⚠️  Below 800 ng/mL: Symptoms may return
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 DOCUMENTATION:
+
+   • QUICKSTART.md - How to use the app
+   • README.md - Full documentation & science
+   • ../README.md - Project overview
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  IMPORTANT DISCLAIMER:
+
+   This is an educational tool based on population averages.
+   Individual responses vary greatly!
+
+   Always consult your doctor before changing medications.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ready to optimize your dosing? Run "npm run dev" now! 🚀
