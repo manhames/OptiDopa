@@ -312,7 +312,7 @@ export async function savePatientProfile(profile: PatientProfile): Promise<void>
       .insert(dbProfile);
 
     if (insertError) {
-      console.error('Error saving patient profile:', error);
+      console.error('Error saving patient profile:', insertError);
     }
   }
 }
