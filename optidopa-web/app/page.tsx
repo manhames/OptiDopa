@@ -9,6 +9,7 @@ import StatsPanel from '@/components/StatsPanel';
 import ImportPreviewModal from '@/components/ImportPreviewModal';
 import PatientProfilePanel from '@/components/PatientProfilePanel';
 import { Plus, Upload, Download } from 'lucide-react';
+import { isSupabaseConfigured } from '@/lib/supabase';
 
 export default function Home() {
   const [doses, setDoses] = useState<Dose[]>([
@@ -186,6 +187,27 @@ export default function Home() {
             Levodopa Dose Tracker & Plasma Concentration Simulator
           </p>
         </div>
+
+        {/* Data ownership notice (browser-only mode) */}
+        {!isSupabaseConfigured() && (
+          <div className="mb-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-100">
+            <p className="font-semibold mb-1">Your data stays on this device.</p>
+            <p>
+              Nothing you enter is sent to a server. Doses and your profile are saved only in this browser&apos;s
+              local storage, so clearing site data or switching devices will lose them. Use{' '}
+              <strong>Export</strong> regularly to keep an Excel copy, and <strong>Import</strong> to restore it.
+              To sync across devices with your own private database, see the{' '}
+              <a
+                href="https://github.com/manhames/OptiDopa#keeping-your-data"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline font-medium"
+              >
+                self-hosting guide
+              </a>.
+            </p>
+          </div>
+        )}
 
         {/* Medications Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">

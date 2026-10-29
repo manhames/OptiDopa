@@ -44,6 +44,44 @@ A web application for Parkinson's disease patients to track levodopa doses, visu
 - **Stores years of data**
 - Export to Excel anytime
 
+## Keeping Your Data
+
+The hosted version of OptiDopa runs in **browser-only mode**. No account, no server, no database:
+
+- Everything you enter is stored in your browser's local storage on your own device.
+- Nothing is transmitted anywhere. The site operator cannot see your doses or profile.
+- That also means **you are responsible for backups**. Clearing browser data, using private browsing, or switching devices will lose your entries.
+
+**To keep your data:**
+
+1. Click **Export** in the Dose Schedule panel. You get an Excel file with all your doses.
+2. Export your **Patient Profile** the same way from its panel.
+3. Store the files somewhere you control (your computer, a drive, a USB stick).
+4. To restore, or to move to another device, use **Import** and pick the file.
+
+**To sync across devices**, run your own private copy with a free Supabase database. Your data then lives in a project only you can access. See [Self-Hosting](#self-hosting).
+
+## Self-Hosting
+
+Both tiers below are free.
+
+### 1. Deploy the app on Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/manhames/OptiDopa&root-directory=optidopa-web&project-name=optidopa)
+
+Or manually:
+
+1. Fork this repo.
+2. In [vercel.com](https://vercel.com), click **Add New Project** and import your fork.
+3. Set **Root Directory** to `optidopa-web`.
+4. Deploy. With no environment variables set, you get browser-only mode.
+
+### 2. (Optional) Add your own database
+
+1. Follow [SUPABASE_SETUP.md](SUPABASE_SETUP.md) to create a free Supabase project and run the schema.
+2. In Vercel, add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` as environment variables and redeploy.
+3. Optionally add Google sign-in via [GOOGLE_OAUTH_SETUP.md](GOOGLE_OAUTH_SETUP.md).
+
 ## Getting Started
 
 ### Quick Start (Local Development)

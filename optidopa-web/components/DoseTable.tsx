@@ -233,7 +233,7 @@ export default function DoseTable({ doses, onUpdate, onDelete, onBulkUpdate }: D
     return (
       <div className="text-center py-12 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 rounded-lg">
         <p className="text-lg mb-2">No doses added yet</p>
-        <p className="text-sm">Click "Add Dose" to get started, or paste from Excel (Ctrl+V)</p>
+        <p className="text-sm">Click &quot;Add Dose&quot; to get started, or paste from Excel (Ctrl+V)</p>
       </div>
     );
   }

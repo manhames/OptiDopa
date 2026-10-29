@@ -667,7 +667,7 @@ export default function PatientProfilePanel({ profile, onUpdate }: PatientProfil
 
               <div>
                 <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-                  How long does your "good time" last?
+                  How long does your &quot;good time&quot; last?
                 </label>
                 <div className="flex items-center gap-4">
                   <input
@@ -757,7 +757,7 @@ export default function PatientProfilePanel({ profile, onUpdate }: PatientProfil
         <div className="mt-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
           <p className="text-sm text-yellow-800 dark:text-yellow-200">
             <strong>How to personalize:</strong> Work with your healthcare provider to identify your specific therapeutic ranges
-            through careful observation and, optionally, blood level monitoring. Click "Customize" to enter your personal ranges,
+            through careful observation and, optionally, blood level monitoring. Click &quot;Customize&quot; to enter your personal ranges,
             which will be used instead of population averages for calculating statistics.
           </p>
         </div>
