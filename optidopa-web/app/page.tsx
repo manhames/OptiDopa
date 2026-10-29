@@ -10,6 +10,7 @@ import ImportPreviewModal from '@/components/ImportPreviewModal';
 import PatientProfilePanel from '@/components/PatientProfilePanel';
 import { Plus, Upload, Download } from 'lucide-react';
 import { isSupabaseConfigured } from '@/lib/supabase';
+import HowItWorks, { DisputeButton } from '@/components/HowItWorks';
 
 export default function Home() {
   const [doses, setDoses] = useState<Dose[]>([
@@ -59,6 +60,35 @@ export default function Home() {
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [patientProfile, setPatientProfile] = useState<PatientProfile>({});
+  const [baseline, setBaseline] = useState<number>(0);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Load doses and baseline from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedDoses = localStorage.getItem('doses');
+      if (savedDoses) {
+        const parsed = JSON.parse(savedDoses) as Array<Omit<Dose, 'datetime'> & { datetime: string }>;
+        setDoses(parsed.map(d => ({ ...d, datetime: new Date(d.datetime) })));
+      }
+      const savedBaseline = localStorage.getItem('baseline');
+      if (savedBaseline !== null) setBaseline(Number(savedBaseline) || 0);
+    } catch (e) {
+      console.error('Failed to load saved data:', e);
+    }
+    setHydrated(true);
+  }, []);
+
+  // Persist doses and baseline whenever they change (after initial load)
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      localStorage.setItem('doses', JSON.stringify(doses));
+      localStorage.setItem('baseline', String(baseline));
+    } catch (e) {
+      console.error('Failed to save data:', e);
+    }
+  }, [doses, baseline, hydrated]);
 
   // Load patient profile from localStorage on mount
   useEffect(() => {
@@ -172,7 +202,11 @@ export default function Home() {
   };
 
   // Calculate concentration profile (duration calculated automatically from dose span)
-  const profile = useMemo(() => generateConcentrationProfile(doses), [doses]);
+  const rawProfile = useMemo(() => generateConcentrationProfile(doses), [doses]);
+  const profile = useMemo(
+    () => rawProfile.map(pt => ({ ...pt, concentration: pt.concentration + baseline })),
+    [rawProfile, baseline]
+  );
   const stats = useMemo(() => calculateStats(profile, doses, undefined, patientProfile), [profile, doses, patientProfile]);
 
   return (
@@ -309,11 +343,58 @@ export default function Home() {
 
         {/* Chart */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-            Plasma Concentration Profile
-          </h2>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+              Plasma Concentration Profile
+            </h2>
+            <DisputeButton />
+          </div>
+
+          {/* Baseline shift slider */}
+          <div className="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-900/40">
+            <div className="flex flex-wrap items-center gap-3">
+              <label htmlFor="baseline" className="text-sm font-medium text-gray-900 dark:text-white">
+                Estimated baseline
+              </label>
+              <input
+                id="baseline"
+                type="range"
+                min={0}
+                max={1000}
+                step={25}
+                value={baseline}
+                onChange={e => setBaseline(Number(e.target.value))}
+                className="flex-1 min-w-[160px] accent-blue-600"
+              />
+              <input
+                type="number"
+                min={0}
+                max={1000}
+                step={25}
+                value={baseline}
+                onChange={e => setBaseline(Math.max(0, Math.min(1000, Number(e.target.value) || 0)))}
+                className="w-20 rounded border border-gray-300 bg-white px-2 py-1 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+              />
+              <span className="text-sm text-gray-600 dark:text-gray-300">ng/mL</span>
+              {baseline > 0 && (
+                <button
+                  onClick={() => setBaseline(0)}
+                  className="text-xs text-gray-500 underline dark:text-gray-400"
+                >
+                  reset
+                </button>
+              )}
+            </div>
+            <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
+              Shifts the whole curve up by a constant amount, as a rough estimate of levodopa or dopamine already in
+              your system that the model does not account for. Set it so the curve matches how you actually feel.
+            </p>
+          </div>
+
           <ConcentrationChart profile={profile} doses={doses} />
         </div>
+
+        <HowItWorks baseline={baseline} />
 
         {/* Disclaimer */}
         <div className="mt-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
