@@ -54,7 +54,7 @@ This guide will help you enable Google sign-in for your OptiDopa application.
    - Add: `https://your-app.vercel.app` (after you deploy to Vercel)
 
    **Authorized redirect URIs:**
-   - Add: `https://uwidcecvsrnucowcolwm.supabase.co/auth/v1/callback`
+   - Add: `https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback`
      - ⚠️ Replace `uwidcecvsrnucowcolwm` with your actual Supabase project reference
      - You can find this in your Supabase project URL
 

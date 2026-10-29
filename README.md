@@ -61,7 +61,7 @@ A web application for Parkinson's disease patients to track levodopa doses, visu
 
 ### Cloud Setup (Recommended for Long-Term Use)
 
-See **[SUPABASE_SETUP.md](optidopa-web/SUPABASE_SETUP.md)** for complete instructions.
+See **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)** for complete instructions.
 
 **Quick summary:**
 1. Create free account at [supabase.com](https://supabase.com)
