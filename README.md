@@ -74,7 +74,7 @@ See **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)** for complete instructions.
 - **Email/Password**: Built-in secure authentication via Supabase Auth
 - **Google Sign-In**: One-click OAuth authentication (requires additional setup)
 
-## Your Medications
+## Supported Medications
 
 - **Carbilev 25/100mg** - Immediate Release (IR)
   - Full dose: 100mg levodopa
@@ -217,7 +217,7 @@ This application uses population-average pharmacokinetic parameters from clinica
 
 ## License
 
-This project is for personal use and educational purposes.
+MIT. See [LICENSE](LICENSE).
 
 ## Contributing
 
