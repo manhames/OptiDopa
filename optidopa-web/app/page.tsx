@@ -271,6 +271,34 @@ export default function Home() {
               </button>
             </div>
           </div>
+
+          {/* How to build and keep your dose spreadsheet */}
+          <details className="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm text-gray-700 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-300">
+            <summary className="cursor-pointer font-medium text-gray-900 dark:text-white">
+              How to make your first spreadsheet and keep it up to date
+            </summary>
+            <div className="mt-3 grid gap-4 md:grid-cols-2">
+              <div>
+                <p className="font-semibold mb-1">Starting out</p>
+                <ol className="list-decimal pl-5 space-y-1">
+                  <li>Click <strong>Add Dose</strong> for each dose you take, or paste rows from Excel (Ctrl+V).</li>
+                  <li>Click the <strong>Medication</strong> and <strong>Dose</strong> cells to pick from the dropdown. Amount and Type fill in automatically.</li>
+                  <li>Set the date and time to when you actually took it. The chart updates as you go.</li>
+                  <li>Click <strong>Export</strong>. This saves an Excel file: that file is your spreadsheet.</li>
+                </ol>
+              </div>
+              <div>
+                <p className="font-semibold mb-1">Keeping it updated</p>
+                <ol className="list-decimal pl-5 space-y-1">
+                  <li>Next time, click <strong>Import</strong> and choose your last exported file.</li>
+                  <li>Add the new day&apos;s doses, or paste them in from your own spreadsheet.</li>
+                  <li>Click <strong>Export</strong> again and keep the newest file. Overwriting the old one is fine.</li>
+                  <li>Your browser also remembers the table between visits, but the exported file is your real backup.</li>
+                </ol>
+              </div>
+            </div>
+          </details>
+
           <DoseTable
             doses={doses}
             onUpdate={updateDose}

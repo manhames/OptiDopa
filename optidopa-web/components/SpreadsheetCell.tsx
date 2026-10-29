@@ -50,6 +50,10 @@ export default function SpreadsheetCell({
       inputRef.current.focus();
       if (inputRef.current instanceof HTMLInputElement) {
         inputRef.current.select();
+      } else if (inputRef.current instanceof HTMLSelectElement) {
+        // Open the dropdown right away (supported in Chromium/Firefox; harmless elsewhere)
+        const el = inputRef.current as HTMLSelectElement & { showPicker?: () => void };
+        try { el.showPicker?.(); } catch { /* ignore */ }
       }
     }
   }, [isEditing]);
@@ -110,6 +114,10 @@ export default function SpreadsheetCell({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setLocalValue(e.target.value);
+    if (type === 'select') {
+      // Commit immediately on pick; blur/Enter will close edit mode
+      onChange(e.target.value);
+    }
   };
 
   const handleBlur = () => {
@@ -151,18 +159,30 @@ export default function SpreadsheetCell({
   }
 
   if (!isEditing) {
+    const isSelect = type === 'select';
     return (
       <div
         ref={cellRef}
         className={cellClasses}
-        onClick={onFocus}
+        onClick={() => {
+          onFocus();
+          if (isSelect) onStartEdit();
+        }}
         onDoubleClick={onStartEdit}
         onKeyDown={handleKeyDown}
         tabIndex={isFocused ? 0 : -1}
       >
-        <div className="text-sm text-gray-900 dark:text-white truncate">
+        <div className={`text-sm text-gray-900 dark:text-white truncate ${isSelect ? 'pr-5' : ''}`}>
           {value || <span className="text-gray-400">&nbsp;</span>}
         </div>
+        {isSelect && (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-xs"
+          >
+            ▼
+          </span>
+        )}
       </div>
     );
   }
